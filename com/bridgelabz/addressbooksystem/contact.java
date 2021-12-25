@@ -1,0 +1,21 @@
+package com.bridgelabz.addressbooksystem;
+
+public class contact {
+
+		String firstName,lastName,address,state,email;
+		int zip;
+		long phoneNumber;
+		contact(String firstName,String lastName,String address,String state,int zip,long phoneNumber,String email){
+			this.firstName=firstName;
+			this.lastName=lastName;
+			this.address=address;
+			this.state=state;
+			this.zip=zip;
+			this.phoneNumber=phoneNumber;
+		}
+		@Override
+		public String toString() {
+			return "contact [firstName=" + firstName + ", lastName=" + lastName + ", address=" + address + ", state="
+					+ state + ", email=" + email + ", zip=" + zip + ", phoneNumber=" + phoneNumber + "]";
+		}
+}
