@@ -1,67 +1,122 @@
 package com.bridgelabz.addressbooksystem;
+import java.util.Scanner;
 
 public class Person {
-
-		static contact [] personDetails = new contact[10];
-		public static void main(String args[]) {
-			contact person1 = new contact("Nandini","Prudhvi","Raj","AP",24,1416,"prudhviraj@gmail.com");
-			contact person2 = new contact("Bablu","Hemanth","SaiDurga","AP",23,1614,"bablu@gmail.com");
-			contact person3 = new contact("vamsi","Krishna","Nagar","AP",47,7620,"vamsi@outlook.com");
-		    personDetails[0]=person1;
-		    personDetails[1]=person2;
-		    personDetails[2]=person3;
-		    System.out.println("Created contact list is");
-		    for(int i = 0; i < 3;i++) {
-			   System.out.println(personDetails[i]);
-		    }
-		    operations();
-		}
-		public static void operations() {
-			int j = 0;
+	
+	static Scanner sc = new Scanner(System.in);
+	static String firstName,lastName,address,state,email;
+	static int zip;
+	static long phoneNumber;
+	static int counterForAdd=3;
+	static int counter;
+    static contact [] personDetails = new contact[10];
+	public static void main(String args[]) {
+		contact person1 = new contact("Nandini","Prudhvi","Raj","AP",23,1416,"prdhviraj@gmail.com");
+		contact person2 = new contact("Bablu","Hemanth","SaiDurga","TN",26,1614,"bablu@outlook.com");
+		contact person3 = new contact("Krishna","Vamsi","Spinning mill","TS",24,8562,"vamsi@gmail.com");
+	    personDetails[0]=person1;
+	    personDetails[1]=person2;
+	    personDetails[2]=person3;
+	    System.out.println("Created contact list is");
+	    counter= personDetails.length;
+	    for(int i = 0; i < counter;i++) {
+	    	if(personDetails[i] != null) {
+		   System.out.println(personDetails[i]);
+	    	}
+	    	else {
+	    		break;
+	    	}
+	    }
+	    System.out.println();
+	    operations();
+	}
+	public static void operations() {
+		boolean label = true;
+		while(label) {
 		    System.out.println("Enter your choice");
 		    System.out.println("1)Add contact");
+		    System.out.println("2)Edit contact");
+		    System.out.println("3)Delete contact");
 		    int choice = sc.nextInt();
 		    switch(choice) {
 		    	case 1:
-		    			System.out.println("Enter details of person");
-			    		System.out.println("Add first name");
-			    		firstName = sc.next();
-			    		System.out.println("Add last name");
-			    		lastName= sc.next();
-			    		System.out.println("Add address");
-			    		address = sc.next();
-			    		System.out.println("Add state");
-			    		state= sc.next();
-			    		System.out.println("Add zip");
-			    		zip = sc.nextInt();
-			    		System.out.println("Add phone number");
-			    		phoneNumber = sc.nextLong();
-			    		System.out.println("Add email");
-			    		email = sc.next();
-			    		Contact person4 = new Contact(firstName,lastName,address,state,zip,phoneNumber,email);
-			    		personDetails[3]=person4;
-			    		j++;
-				 for(int i = 0; i < 3 + j;i++) {
+		    		int numOfPerson=1;
+		    		System.out.println("Enter how many contacts do you want to add");
+		    		int numOfContacts = sc.nextInt();
+		    		while(numOfContacts > 0) {
+		    		System.out.println("Add Person"+numOfPerson);
+		    		contactInfo();
+		    		//Contact person4 = new Contact(firstName,lastName,address,state,zip,phoneNumber,email);
+		    		personDetails[counterForAdd++]=new contact(firstName,lastName,address,state,zip,phoneNumber,email);
+		    		numOfContacts--;
+		    		numOfPerson++;
+		    		}
+		    		System.out.println("Newly updated contact list is");
+		    		for(int i = 0; i < counterForAdd;i++) {
 					   System.out.println(personDetails[i]);
-				 }
+		    		}
+		    		break;
+		    	case 2:
+		    		int i;
+		    		System.out.println("Enter name of person whose details you want to edit");
+		    		String keyName = sc.next();
+		    		for( i = 0; i < counterForAdd; i++) {
+		    		if(keyName.equals(personDetails[i].firstName)) {
+		    				contactInfo();
+		    				contact person5 = new contact(firstName,lastName,address,state,zip,phoneNumber,email);
+		    		 		personDetails[i]= person5;
+		    			}
+		    		}
+		    		System.out.println("Newly edited contact list is");
+		    		for(i = 0; i < counterForAdd;i++) {
+		    			   System.out.println(personDetails[i]);
+		    		}
+		    		break;
+		    	case 3:
+		    		System.out.println("Enter name of person whose details you want to delete");
+		    		String keyToDelete = sc.next();
+		    		for( i = 0; i < counterForAdd; i++) {
+		    			if(keyToDelete.equals(personDetails[i].firstName)) {
+		    				for(int k = i; k < counterForAdd - i; k++) {
+		    					personDetails[k]=personDetails[k+1];
+		    				}
+		    			counterForAdd--;
+		    			}
+		    		}
+		    		System.out.println("Newly edited contact list is");
+		    		for(i = 0; i < counterForAdd;i++) {
+		    			   System.out.println(personDetails[i]);
+		    		}
+		    		break;
+		    	default:
+		    		System.err.println("Enter valid choice");
 			}
+		    System.out.println("Do you to enter your choice again");
+		    System.out.println("Enter '1' if you want or '2' if you dont want");
+		    int responceToContinue = sc.nextInt();
+		    if(responceToContinue == 1) {
+		    	label = true;
+		    }
+		    else {
+		    	label = false;
+		    }
 		}
-		public static void contactInfo() {
-			System.out.println("Enter details of person");
-			System.out.println("Add first name");
-			firstName = sc.next();
-			System.out.println("Add last name");
-			lastName= sc.next();
-			System.out.println("Add address");
-			address = sc.next();
-			System.out.println("Add state");
-			state= sc.next();
-			System.out.println("Add zip");
-			zip = sc.nextInt();
-			System.out.println("Add phone number");
-			phoneNumber = sc.nextLong();
-			System.out.println("Add email");
-			email = sc.next();
-		}
+	}
+	public static void contactInfo() {
+		System.out.println("Enter details of person");
+		System.out.println("Add first name");
+		firstName = sc.next();
+		System.out.println("Add last name");
+		lastName= sc.next();
+		System.out.println("Add address");
+		address = sc.next();
+		System.out.println("Add state");
+		state= sc.next();
+		System.out.println("Add zip");
+		zip = sc.nextInt();
+		System.out.println("Add phone number");
+		phoneNumber = sc.nextLong();
+		System.out.println("Add email");
+		email = sc.next();
 	}
 }
